@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Payment</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://bobbucks.dev; script-src 'self' 'unsafe-inline'; img-src 'self' https://bobbucks.dev;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://bobbucks.dev; connect-src 'self' https://google.com; script-src 'self' 'unsafe-inline'; img-src 'self' https://bobbucks.dev; img-src 'self' https://google.com;">
 
   </head>
   <body>
@@ -14,6 +14,9 @@
       [
         {
           supportedMethods: "https://google.com/pay",
+        },
+        {
+          supportedMethods: "https://bobbucks.dev/pay",
         },
       ],
       {
