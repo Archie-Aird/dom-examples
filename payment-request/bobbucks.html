@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Payment</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://bobbucks.dev; script-src 'self' 'unsafe-inline'; img-src 'self' https://bobbucks.dev;">
+
+  </head>
+  <body>
+    <h1>Check out</h1>
+    <button onclick="pay('1')">Checkout: $1</button>
+    <script>
+      function pay(amount) {
+    const request = new PaymentRequest(
+      [
+        {
+          supportedMethods: "https://bobbucks.dev/pay",
+        },
+      ],
+      {
+        total: {
+          label: "total",
+          amount: { value: amount.toString(), currency: "USD" },
+        },
+      },
+    );
+      }
+    </script>
+  </body>
+</html>
