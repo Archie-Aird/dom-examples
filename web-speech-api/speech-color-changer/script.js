@@ -80,15 +80,27 @@ startBtn.onclick = function () {
 
 recognition.onresult = function (event) {
   const transcript = event.results[0][0].transcript;
+  const confidence = event.results[0][0].confidence;
+
+  // if confidence is very low, ignore the result to avoid wrong color changes
+  const threshold = 0.5; // change threshold if you want to be more/less strict
+  if (confidence < threshold) {
+    diagnostic.textContent =
+      "Low confidence (" + confidence.toFixed(2) + ") — please try again.";
+    console.log("Ignored low-confidence result: " + confidence);
+    return;
+  }
+
   // normalize: strip punctuation and capitalization
   const normalized = transcript
     .toLowerCase()
     .replace(/[^a-z\s-]/g, "")
     .trim();
 
-  diagnostic.textContent = "Result received: " + transcript + " -> " + normalized + ".";
+  diagnostic.textContent =
+    "Result received: " + transcript + " (confidence: " + confidence.toFixed(2) + ") -> " + normalized + ".";
   bg.style.backgroundColor = normalized;
-  console.log("Confidence: " + event.results[0][0].confidence);
+  console.log("Confidence: " + confidence);
 };
 
 recognition.onspeechend = function () {
