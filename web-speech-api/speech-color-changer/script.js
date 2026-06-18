@@ -79,9 +79,15 @@ startBtn.onclick = function () {
 };
 
 recognition.onresult = function (event) {
-  const color = event.results[0][0].transcript;
-  diagnostic.textContent = "Result received: " + color + ".";
-  bg.style.backgroundColor = color;
+  const transcript = event.results[0][0].transcript;
+  // normalize: strip punctuation and capitalization
+  const normalized = transcript
+    .toLowerCase()
+    .replace(/[^a-z\s-]/g, "")
+    .trim();
+
+  diagnostic.textContent = "Result received: " + transcript + " -> " + normalized + ".";
+  bg.style.backgroundColor = normalized;
   console.log("Confidence: " + event.results[0][0].confidence);
 };
 
